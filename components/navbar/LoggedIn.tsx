@@ -17,7 +17,7 @@ export default function LoggedIn({ image }: User) {
         Sign Out
       </Button>
       <Link href={"/dashboard"}>
-        <Image className="w-12 rounded-full" width={64} height={64} alt="user image" src={image} priority></Image>
+        <Image className="w-10 rounded-full" width={64} height={64} alt="user image" src={image} priority></Image>
       </Link>
     </li>
   );

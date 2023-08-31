@@ -1,7 +1,8 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
-import Nav from "../components/authentication/Nav";
+import Nav from "../components/navbar/Nav";
+import QueryWrapper from "./QueryWrapper";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -21,8 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${roboto.className} antialiased width-full`}>
-        <Nav />
-        <div className="px-6 md:px-6 pt-12 pb-24 md:pt-12 md:pb-44 max-w-[700px] mx-auto">{children}</div>
+        <QueryWrapper>
+          <Nav />
+          <div className="px-6 md:px-6 pt-12 pb-24 md:pt-12 md:pb-44 max-w-[700px] mx-auto">
+            {children}
+          </div>
+        </QueryWrapper>
       </body>
     </html>
   );
