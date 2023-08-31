@@ -17,15 +17,25 @@ export default function NewPost() {
   const [title, setTitle] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
 
-  // create a post
+  // create a post (make the request)
   const { mutate } = useMutation(
-    async (title) => await axios.post("/api/posts/addPost", { title })
+    async (title: string) => await axios.post("/api/posts/addPost", { title }),
+    { 
+      onError: (error) => {
+        console.log(error);
+      },
+      onSuccess: (data) => {
+        console.log(data);
+        setTitle('') // reset title 
+        setIsDisabled(false)
+      }
+    }
   );
 
   const submitPost = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsDisabled(true);
-    mutate(title);
+    const response = mutate(title);
   };
 
   return (
@@ -50,10 +60,7 @@ export default function NewPost() {
               title.length > 300 ? "text-red-600" : ""
             } font-bold text-sm`}
           >{`${title.length}/300`}</p>
-          <Button
-            type="submit"
-            disabled={isDisabled}
-          >
+          <Button type="submit" disabled={isDisabled}>
             Post
           </Button>
         </CardFooter>

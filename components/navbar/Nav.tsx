@@ -4,10 +4,13 @@ import LoggedIn from "./LoggedIn";
 
 import { authOptions } from "../../pages/api/auth/[...nextauth]"
 import { getServerSession } from "next-auth/next";
+import { ModeToggle } from "./ModeToggle";
 
 
 export default async function Nav() {
   const session = await getServerSession(authOptions)
+ 
+
   return (
     <header className="relative top-0 z-50">
       <nav className="px-6 md:px-6 py-3 md:max-w-[700px] mx-auto flex justify-between items-center gap-3">
@@ -21,6 +24,7 @@ export default async function Nav() {
           {!session?.user && <Login />}
           {session?.user && <h1><LoggedIn image={session.user?.image || ""} /></h1>}
         </ul>
+        <ModeToggle />
       </nav>
     </header>
   );

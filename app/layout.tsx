@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import Nav from "../components/navbar/Nav";
 import QueryWrapper from "./QueryWrapper";
+import { Toaster } from "react-hot-toast";
+import { ThemeProvider } from "./theme-provider"
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -23,10 +25,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${roboto.className} antialiased width-full`}>
         <QueryWrapper>
-          <Nav />
-          <div className="px-6 md:px-6 pt-12 pb-24 md:pt-12 md:pb-44 max-w-[700px] mx-auto">
-            {children}
-          </div>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <Nav />
+            <div className="px-6 md:px-6 pt-12 pb-24 md:pt-12 md:pb-44 max-w-[700px] mx-auto">
+              {children}
+            </div>
+          </ThemeProvider>
         </QueryWrapper>
       </body>
     </html>
