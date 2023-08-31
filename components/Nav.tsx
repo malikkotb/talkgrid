@@ -1,11 +1,13 @@
 import Link from "next/link";
 import Login from "./Login";
 
-// import { getServerSession } from "next-auth/next"
-// import { authOptions } from "../pages/api/auth/[...nextauth]"
+import { authOptions } from "../pages/api/auth/[...nextauth]"
+import { getServerSession } from "next-auth/next";
 
 
 export default async function Nav() {
+  const session = await getServerSession(authOptions)
+  console.log(session);
   return (
     <header className="relative top-0 z-50">
       <nav className="px-6 md:px-6 py-3 lg:max-w-[700px] mx-auto flex justify-between items-center gap-3">
