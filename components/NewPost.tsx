@@ -3,6 +3,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { Textarea } from "../components/ui/textarea";
+import toast from "react-hot-toast";
 import { Button } from "../components/ui/button";
 import axios from "axios";
 import {
@@ -23,6 +24,7 @@ export default function NewPost() {
     { 
       onError: (error) => {
         console.log(error);
+        toast.error(error?.response?.data.message)
       },
       onSuccess: (data) => {
         console.log(data);
