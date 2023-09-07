@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Textarea } from "../components/ui/textarea";
 import toast from "react-hot-toast";
 import { Button } from "../components/ui/button";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import {
   Card,
   CardContent,
@@ -17,25 +17,29 @@ import {
 export default function NewPost() {
   const [title, setTitle] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
-
+  let toastPostID: string
+  
   // create a post (make the request)
   const { mutate } = useMutation(
     async (title: string) => await axios.post("/api/posts/addPost", { title }),
-    { 
+    {
       onError: (error) => {
-        console.log(error);
-        toast.error(error?.response?.data.message)
+        if (error instanceof AxiosError) {
+          toast.error(error?.response?.data.message, {id: toastPostID});
+        }
+        setIsDisabled(false)
       },
       onSuccess: (data) => {
-        console.log(data);
-        setTitle('') // reset title 
-        setIsDisabled(false)
-      }
+        toast.success('Post has been made 🪩', {id: toastPostID})        
+        setTitle(""); // reset title
+        setIsDisabled(false);
+      },
     }
   );
 
   const submitPost = async (e: React.FormEvent) => {
     e.preventDefault();
+    toastPostID = toast.loading("Creating your post", {id: toastPostID})
     setIsDisabled(true);
     const response = mutate(title);
   };

@@ -13,7 +13,7 @@ export default async function handler(
     if (!session)
       return res.status(401).json({ message: "Please sign in to make a post" });
 
-    console.log(req.body);
+    console.log("message: ", req.body);
     const title: string = req.body.title;
 
     // Get user with this unique email

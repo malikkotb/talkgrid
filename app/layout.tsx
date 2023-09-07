@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import Nav from "../components/navbar/Nav";
 import QueryWrapper from "./QueryWrapper";
-import { Toaster } from "react-hot-toast";
 import { ThemeProvider } from "./theme-provider"
 
 const roboto = Roboto({
@@ -27,7 +26,6 @@ export default function RootLayout({
         <QueryWrapper>
           <ThemeProvider attribute="class" enableColorScheme defaultTheme="system" enableSystem>
             <Nav />
-            <Toaster />
             <div className="px-6 md:px-6 pt-12 pb-24 md:pt-12 md:pb-44 max-w-[700px] mx-auto">
               {children}
             </div>
