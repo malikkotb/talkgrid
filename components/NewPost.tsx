@@ -30,6 +30,8 @@ export default function NewPost() {
         setIsDisabled(false)
       },
       onSuccess: (data) => {
+        console.log("toaster not loading properly");
+        console.log(toastPostID);
         toast.success('Post has been made 🪩', {id: toastPostID})        
         setTitle(""); // reset title
         setIsDisabled(false);
