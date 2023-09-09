@@ -17,22 +17,21 @@ import {
 export default function NewPost() {
   const [title, setTitle] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
-  let toastPostID: string
-  
+  let toastPostID: string = "hello";
+
   // create a post (make the request)
   const { mutate } = useMutation(
     async (title: string) => await axios.post("/api/posts/addPost", { title }),
     {
       onError: (error) => {
         if (error instanceof AxiosError) {
-          toast.error(error?.response?.data.message, {id: toastPostID});
+          toast.error(error?.response?.data.message, { id: toastPostID });
         }
-        setIsDisabled(false)
+        setIsDisabled(false);
       },
       onSuccess: (data) => {
-        console.log("toaster not loading properly");
         console.log(toastPostID);
-        toast.success('Post has been made 🪩', {id: toastPostID})        
+        toast.success("Post has been made 🪩", { id: toastPostID });
         setTitle(""); // reset title
         setIsDisabled(false);
       },
@@ -41,7 +40,7 @@ export default function NewPost() {
 
   const submitPost = async (e: React.FormEvent) => {
     e.preventDefault();
-    toastPostID = toast.loading("Creating your post", {id: toastPostID})
+    toastPostID = toast.loading("Creating your post", { id: toastPostID });
     setIsDisabled(true);
     const response = mutate(title);
   };
