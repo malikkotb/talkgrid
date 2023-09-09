@@ -20,11 +20,8 @@ export default function Home() {
       {/* prisma lets you communicate with any type of database using only one syntax */}
       <NewPost />
       <ul className="pt-8 gap-8 flex flex-col">
-        <Post></Post>
-        <Post></Post>
-        <Post></Post>
-        <Post></Post>
-        <Post></Post>
+        {data?.map((post) => <Post key={post.id} name={post.user.name} avatar={post.user.image} postTitle={post.title} id={post.id} /> )}
+      
       </ul>
     </main>
   );

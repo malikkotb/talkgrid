@@ -10,7 +10,14 @@ export default async function handler(
     // Get (fetch) all of the posts
     try {
       // findMany lets you fetch all entries
-      const result = await prisma.post.findMany();
+      const result = await prisma.post.findMany({
+        include: {
+          user: true, 
+        },
+        orderBy: {
+          createdAt: "desc",
+        }
+      });
       res.status(200).json(result);
     } catch (err) {
       res.status(403).json({ err: "Error fetching posts." });

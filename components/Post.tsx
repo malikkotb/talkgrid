@@ -1,5 +1,6 @@
 import { Textarea } from "../components/ui/textarea";
 import { Button } from "../components/ui/button";
+import Link from "next/link";
 import {
   Card,
   CardContent,
@@ -9,7 +10,7 @@ import {
 } from "../components/ui/card";
 import Image from "next/image";
 
-export default function Post() {
+export default function Post({ avatar, name, id, postTitle }) {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center gap-2">
@@ -18,21 +19,22 @@ export default function Post() {
           width={64}
           height={64}
           alt="user image"
-          src={"/ronaldo.png"}
+          src={avatar}
           priority
         ></Image>
-        <CardTitle>User Name</CardTitle>
+        <CardTitle>{name}</CardTitle>
       </CardHeader>
       <CardContent className="grid gap-6">
         <div className="grid gap-2">
-          {/* TODO: get content of Post from postgres */}
-          <p className="line-clamp-3">hallo malik ich bin die alba  Content of Post Content of Post Content of Post Content of Post Content of Post Content of Post Content of Post Content of Post Content of Post Content of Post Content of Post Content of Post Content of Post Content of Post Content of Post Content of Post Content of Post Content of Post Content of Post Content of Post </p>
+          <p className="line-clamp-3">{postTitle}</p>
         </div>
       </CardContent>
       <CardFooter className="justify-between space-x-2">
-        <p className="font-bold text-sm">
-            {/* TODO: get number of comments from postgres */}
-            {`0 comments`}</p>
+        {/* TODO: get number of comments from postgres */}
+
+        <Link href={`/post/${id}`}>
+          <p className="text-sm cursor-pointer font-bold">Comments</p>
+        </Link>
       </CardFooter>
     </Card>
   );
