@@ -12,7 +12,7 @@ export type UserPosts = {
       id: string;
       postId: string;
       title: string;
-      userld: string;
+      userId: string;
     }[];
   }[];
 };

@@ -16,7 +16,7 @@ export default function MyPosts() {
     queryKey: ["auth-posts"],
   });
 
-  if (isLoading) return <h1>Posts are loading...</h1>;
+  if (isLoading) return <div className="mt-16 flex text-lg font-bold justify-center">Your Posts are loading...</div>
   console.log(data);
 
   return (

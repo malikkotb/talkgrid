@@ -1,14 +1,15 @@
 "use client";
 
+import { Button } from "@/components/ui/button"
 import Image from "next/image";
 import { useState } from "react";
 import {
-    Card,
-    CardContent,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-  } from "../../components/ui/card";
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../../components/ui/card";
 import Link from "next/link";
 
 type EditProps = {
@@ -17,8 +18,10 @@ type EditProps = {
   name: string;
   title: string;
   comments?: {
+    createdAt: string;
     id: string;
     postId: string;
+    title: string;
     userId: string;
   }[];
 };
@@ -48,13 +51,13 @@ export default function EditPost({
           <p className="line-clamp-3">{title}</p>
         </div>
       </CardContent>
-      <CardFooter className="justify-between space-x-2">
-
+      <CardFooter className="flex justify-between space-x-2">
         <Link href={`/post/${id}`}>
           <p className="text-sm cursor-pointer font-bold">
             {comments?.length} Comments
           </p>
         </Link>
+        <Button variant="ghost" className="text-red-700 font-bold">Delete</Button>
       </CardFooter>
     </Card>
   );

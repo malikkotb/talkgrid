@@ -17,6 +17,7 @@ import {
 export default function NewPost() {
   const [title, setTitle] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
+  const queryClient = useQueryClient()
   let toastPostID: string = "hello";
 
   // create a post (make the request)
@@ -29,11 +30,12 @@ export default function NewPost() {
         }
         setIsDisabled(false);
       },
-      onSuccess: (data) => {
+      onSuccess: (data) => { // post is successfully posted and stored in the DB
         console.log(toastPostID);
         toast.success("Post has been made 🪩", { id: toastPostID });
         setTitle(""); // reset title
         setIsDisabled(false);
+        queryClient.invalidateQueries(["posts"]) // will automatically refetch all posts 
       },
     }
   );
