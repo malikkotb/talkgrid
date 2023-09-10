@@ -10,7 +10,7 @@ import {
 } from "../components/ui/card";
 import Image from "next/image";
 
-export default function Post({ avatar, name, id, postTitle }) {
+export default function Post({ avatar, name, id, postTitle, comments }) {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center gap-2">
@@ -33,7 +33,7 @@ export default function Post({ avatar, name, id, postTitle }) {
         {/* TODO: get number of comments from postgres */}
 
         <Link href={`/post/${id}`}>
-          <p className="text-sm cursor-pointer font-bold">Comments</p>
+          <p className="text-sm cursor-pointer font-bold">{comments?.length} Comments</p>
         </Link>
       </CardFooter>
     </Card>
