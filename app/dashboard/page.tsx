@@ -1,6 +1,7 @@
 import { getServerSession } from "next-auth"
 import { authOptions } from "../../pages/api/auth/[...nextauth]"
 import { redirect } from "next/navigation"
+import MyPosts from "./MyPosts"
 
 export default async function page() {
   // get userName from next-auth
@@ -15,6 +16,7 @@ export default async function page() {
   return (
       <main>
         <h1 className=" text-2xl font-bold">Welcome back {session.user?.name}!</h1>
+        <MyPosts />
       </main>
     )
 }

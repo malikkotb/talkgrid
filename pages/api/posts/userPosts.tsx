@@ -15,15 +15,26 @@ export default async function handler(
    
     // get users' posts
     try {
-      const data = await prisma.user.findUnique({
+      const data = await prisma.user.findUnique({ // find the user
         where: {
             email: session.user?.email
+        },
+        include: { 
+            posts: { // get all the users' posts
+                orderBy: {
+                    createdAt: 'desc'
+                },
+                include: { // and include the comments on those posts 
+                    comments: true,
+                }
+            }
         }
+
       })
         
       res.status(200).json(data);
     } catch (err) {
-      res.status(403).json({ err: "Error occurred while making a post."});
+      res.status(403).json({ err: "Error occurred while fetching users' post."});
     }
   }
 }

@@ -1,16 +1,35 @@
-import { Textarea } from "../components/ui/textarea";
-import { Button } from "../components/ui/button";
-import Link from "next/link";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "../components/ui/card";
-import Image from "next/image";
+"use client";
 
-export default function Post({ avatar, name, id, postTitle, comments }) {
+import Image from "next/image";
+import { useState } from "react";
+import {
+    Card,
+    CardContent,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+  } from "../../components/ui/card";
+import Link from "next/link";
+
+type EditProps = {
+  id: string;
+  avatar: string;
+  name: string;
+  title: string;
+  comments?: {
+    id: string;
+    postId: string;
+    userId: string;
+  }[];
+};
+
+export default function EditPost({
+  avatar,
+  name,
+  title,
+  comments,
+  id,
+}: EditProps) {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center gap-2">
@@ -26,13 +45,15 @@ export default function Post({ avatar, name, id, postTitle, comments }) {
       </CardHeader>
       <CardContent className="grid gap-6">
         <div className="grid gap-2">
-          <p className="line-clamp-3">{postTitle}</p>
+          <p className="line-clamp-3">{title}</p>
         </div>
       </CardContent>
       <CardFooter className="justify-between space-x-2">
 
         <Link href={`/post/${id}`}>
-          <p className="text-sm cursor-pointer font-bold">{comments?.length} Comments</p>
+          <p className="text-sm cursor-pointer font-bold">
+            {comments?.length} Comments
+          </p>
         </Link>
       </CardFooter>
     </Card>
