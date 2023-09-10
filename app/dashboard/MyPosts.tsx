@@ -13,7 +13,7 @@ const fetchUserPosts = async () => {
 export default function MyPosts() {
   const { data, isLoading } = useQuery<UserPosts>({
     queryFn: fetchUserPosts,
-    queryKey: ["auth-posts"],
+    queryKey: ["user-posts"],
   });
 
   if (isLoading) return <div className="mt-16 flex text-lg font-bold justify-center">Your Posts are loading...</div>

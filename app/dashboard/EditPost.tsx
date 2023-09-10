@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { useState } from "react";
 import {
   Card,
   CardContent,
@@ -12,8 +11,8 @@ import {
 } from "../../components/ui/card";
 import Link from "next/link";
 import DeleteDialog from "./DeleteDialog";
-import { useMutation } from "@tanstack/react-query";
-import { error } from "console";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 import axios from "axios";
 
 type EditProps = {
@@ -37,6 +36,12 @@ export default function EditPost({
   comments,
   id,
 }: EditProps) {
+  // for loading state of toast
+  let deleteToastId: string = "hello";
+
+  //instantiate queryCLient
+  const queryClient = useQueryClient();
+
   // Delete a post
   const { mutate } = useMutation(
     async (id: string) =>
@@ -44,16 +49,21 @@ export default function EditPost({
     {
       onError: (error) => {
         console.log(error);
+        toast.error("Error deleting this post.", { id: deleteToastId});
       },
       onSuccess: (data) => {
         console.log(data);
+        toast.success("Post has been deleted.🤗", { id: deleteToastId });
+        // invalidate queries -> so fetch em all again (caching)
+        queryClient.invalidateQueries(["user-posts"])
       },
     }
   );
 
   const deletePost = () => {
-    mutate(id)
-  }
+    deleteToastId = toast.loading("Deleting your post 🧐", { id: deleteToastId });
+    mutate(id);
+  };
 
   return (
     <>
@@ -84,7 +94,7 @@ export default function EditPost({
             variant="link"
             className="text-red-700 hover:no-underline font-bold"
           >
-            <DeleteDialog deletePost={deletePost} /> 
+            <DeleteDialog deletePost={deletePost} />
           </Button>
         </CardFooter>
       </Card>

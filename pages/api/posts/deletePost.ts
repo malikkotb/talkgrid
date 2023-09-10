@@ -7,34 +7,24 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method === "POST") {
+  if (req.method === "DELETE") {
     // get user from next-auth 
     const session = await getServerSession(req, res, authOptions);
     if (!session)
-      return res.status(401).json({ message: "Please sign in to view your posts" });
+      return res.status(401).json({ message: "Please sign in to delete a post posts" });
    
-    // get users' posts
+    // delete a post
     try {
-      const data = await prisma.user.findUnique({ // find the user
+      const postId = req.body
+      const result = await prisma.post.delete({
         where: {
-            email: session.user?.email
-        },
-        include: { 
-            posts: { // get all the users' posts
-                orderBy: {
-                    createdAt: 'desc'
-                },
-                include: { // and include the comments on those posts 
-                    comments: true,
-                }
-            }
+            id: postId,
         }
-
       })
         
-      res.status(200).json(data);
+      res.status(200).json(result );
     } catch (err) {
-      res.status(403).json({ err: "Error occurred while fetching users' post."});
+      res.status(403).json({ err: "Error occurred while deleting your post."});
     }
   }
 }
