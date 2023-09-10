@@ -12,6 +12,9 @@ import {
 } from "../../components/ui/card";
 import Link from "next/link";
 import DeleteDialog from "./DeleteDialog";
+import { useMutation } from "@tanstack/react-query";
+import { error } from "console";
+import axios from "axios";
 
 type EditProps = {
   id: string;
@@ -34,6 +37,24 @@ export default function EditPost({
   comments,
   id,
 }: EditProps) {
+  // Delete a post
+  const { mutate } = useMutation(
+    async (id: string) =>
+      await axios.delete("/api/posts/deletePost", { data: id }),
+    {
+      onError: (error) => {
+        console.log(error);
+      },
+      onSuccess: (data) => {
+        console.log(data);
+      },
+    }
+  );
+
+  const deletePost = () => {
+    mutate(id)
+  }
+
   return (
     <>
       <Card>
@@ -59,9 +80,11 @@ export default function EditPost({
               {comments?.length} Comments
             </p>
           </Link>
-          <Button variant="link" className="text-red-700 hover:no-underline font-bold">
-            
-            <DeleteDialog />
+          <Button
+            variant="link"
+            className="text-red-700 hover:no-underline font-bold"
+          >
+            <DeleteDialog deletePost={deletePost} /> 
           </Button>
         </CardFooter>
       </Card>

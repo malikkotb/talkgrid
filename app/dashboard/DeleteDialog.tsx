@@ -8,10 +8,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 
-export default function DeleteDialog() {
+type DialogProps = {
+  deletePost: () => void;
+};
+
+export default function DeleteDialog({ deletePost }: DialogProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -40,7 +42,13 @@ export default function DeleteDialog() {
           </div>
         </div> */}
         <DialogFooter>
-          <Button type="submit" variant={"destructive"}>Delete Post</Button>
+          <Button
+            type="submit"
+            onClick={deletePost}
+            variant={"destructive"}
+          >
+            Delete Post
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
