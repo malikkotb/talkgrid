@@ -12,7 +12,7 @@ type URL = {
 };
 
 const fetchDetails = async (slug: string) => {
-  const response = await axios.get(`api/posts/${slug}`);
+  const response = await axios.get(`/api/posts/${slug}`)
   return response.data;
 };
 
@@ -30,13 +30,14 @@ export default function PostDetail(url: URL) {
 
   return (
     <div>
-      {/* <Post
+      <Post
         id={data.id}
         name={data.user.name}
         avatar={data.user.image}
         postTitle={data.title}
         comments={data.comments}
-      /> */}
+      />
     </div>
   );
 }
+
