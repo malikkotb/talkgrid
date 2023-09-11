@@ -4,6 +4,7 @@ import axios from "axios";
 import Post from "../../../components/Post";
 import { useQuery } from "@tanstack/react-query";
 import { PostType } from "../../types/Post";
+import AddComment from "../../../components/AddComment";
 
 type URL = {
   params: {
@@ -37,6 +38,7 @@ export default function PostDetail(url: URL) {
         postTitle={data.title}
         comments={data.comments}
       />
+      <AddComment  />
     </div>
   );
 }
