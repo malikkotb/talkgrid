@@ -10,15 +10,31 @@ import {
   CardTitle,
 } from "../components/ui/card";
 
-
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { error } from "console";
 
 export default function AddComment({ id }) {
   const [title, setTitle] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
+  const queryClient = useQueryClient();
+  let commentToastId: string = "hello"
+
+  const { mutate } = useMutation(
+    async (data) => axios.post("/api/posts/addComment", { data }),
+    {
+      onSuccess: (data) => {
+        setTitle("")
+        setIsDisabled(false);
+        toast.success("Added your comment 💡", { id: commentToastId })
+      },
+      onError: (error) => {
+        setIsDisabled(false);
+      },
+    }
+  );
 
   return (
     <div className="my-8">
