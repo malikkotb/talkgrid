@@ -11,10 +11,9 @@ import {
 } from "../components/ui/card";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { error } from "console";
 
 export default function AddComment({ id }) {
   const [title, setTitle] = useState("");
@@ -32,6 +31,9 @@ export default function AddComment({ id }) {
       },
       onError: (error) => {
         setIsDisabled(false);
+        if (error instanceof AxiosError) {
+            toast.error(error?.message?.data.message, { id: commentToastId })
+        }
       },
     }
   );
