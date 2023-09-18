@@ -15,7 +15,11 @@ import axios, { AxiosError } from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-export default function AddComment({ id }) {
+type PostProps = {
+    id?: string
+}
+
+export default function AddComment({ id }: PostProps) {
   const [title, setTitle] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
   const queryClient = useQueryClient();
@@ -37,6 +41,13 @@ export default function AddComment({ id }) {
       },
     }
   );
+
+  const submitComment = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsDisabled(true)
+    commentToastId = toast.loading('Adding your comment', {id: commentToastId})
+    mutate({ title, postId: id})
+  }
 
   return (
     <div className="my-8">
