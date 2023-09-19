@@ -19,6 +19,11 @@ type PostProps = {
     id?: string
 }
 
+type Comment = {
+    postId?: string
+    title: string
+}
+
 export default function AddComment({ id }: PostProps) {
   const [title, setTitle] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
@@ -26,7 +31,7 @@ export default function AddComment({ id }: PostProps) {
   let commentToastId: string = "hello"
 
   const { mutate } = useMutation(
-    async (data) => axios.post("/api/posts/addComment", { data }),
+    async (data: Comment) => axios.post("/api/posts/addComment", { data }),
     {
       onSuccess: (data) => {
         setTitle("")
@@ -36,7 +41,7 @@ export default function AddComment({ id }: PostProps) {
       onError: (error) => {
         setIsDisabled(false);
         if (error instanceof AxiosError) {
-            toast.error(error?.message?.data.message, { id: commentToastId })
+            toast.error(error?.response?.data.message, { id: commentToastId })
         }
       },
     }
@@ -71,7 +76,7 @@ export default function AddComment({ id }: PostProps) {
               title.length > 300 ? "text-red-600" : ""
             } font-bold text-sm`}
           >{`${title.length}/300`}</p>
-          <Button type="submit" disabled={isDisabled}>
+          <Button onClick={submitComment} type="submit" disabled={isDisabled}>
             Add Comment 🌺
           </Button>
         </CardFooter>
