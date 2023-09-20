@@ -10,7 +10,16 @@ import {
 } from "../components/ui/card";
 import Image from "next/image";
 
-export default function Post({ avatar, name, id, postTitle, comments }) {
+type Post = {
+  avatar: string
+  name: string
+  id: string
+  postTitle: string
+  comments: string[]
+}
+
+
+export default function Post({ avatar, name, id, postTitle, comments }: Post) {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center gap-2">
