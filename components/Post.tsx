@@ -15,7 +15,7 @@ type Post = {
   name: string
   id: string
   postTitle: string
-  comments: string[]
+  comments: any
 }
 
 
