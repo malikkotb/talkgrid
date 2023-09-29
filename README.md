@@ -1,5 +1,5 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
+# TalkGrid
+TalkGrid is a Full-Stack Post Board web application crafted using TypeScript, Next.js, Next Auth, Prisma, and Tailwind CSS. It empowers users to post content, engage in discussions, and foster connections in an intuitive and modern interface. Explore diverse topics and start meaningful conversations with our sleek and efficient platform.
 ## Getting Started
 
 First, run the development server:
